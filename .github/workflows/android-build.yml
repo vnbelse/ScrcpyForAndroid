@@ -25,13 +25,13 @@ jobs:
         run: chmod +x gradlew
 
       - name: 🛠️ Build Debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --stacktrace
 
-      - name: 📂 List APK output
-        run: ls -l app/build/outputs/apk/debug/
+      - name: 🔍 Find all APKs
+        run: find . -name "*.apk"
 
-      - name: 📦 Upload Debug APK
+      - name: 📦 Upload all APKs
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: all-apks
+          path: '**/*.apk'
