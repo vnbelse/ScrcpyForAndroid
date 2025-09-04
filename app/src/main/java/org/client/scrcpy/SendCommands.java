@@ -34,6 +34,8 @@ public class SendCommands {
     public int SendAdbCommands(Context context, final byte[] fileBase64, final String ip, int port, int forwardport, String localip, int bitrate, int size) {
         this.context = context;
         status = 1;
+        
+        // Thêm tùy chọn --turn-screen-off vào mảng lệnh
         String[] commands = new String[]{
                 "-s", ip + ":" + port,
                 "shell",
@@ -41,10 +43,12 @@ public class SendCommands {
                 "app_process",
                 "/",
                 "org.server.scrcpy.Server",
+                "--turn-screen-off", // Dòng này đã được thêm vào
                 "/" + localip,
                 Long.toString(size),
                 Long.toString(bitrate) + ";"
         };
+
         ThreadUtils.execute(() -> {
             try {
                 // 新版的复制方式
